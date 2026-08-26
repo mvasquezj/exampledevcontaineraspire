@@ -1,0 +1,48 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+	"name": "Example aspire Dev Container",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble",
+
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest"
+		},
+		"ghcr.io/microsoft/aspire-devcontainer-feature/aspire:2": {}
+	},
+
+	"postStartCommand": "dotnet dev-certs https --trust",
+
+    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y curl unzip procps libxext6 libxrender1 libxtst6 libxi6 libfreetype6",
+
+	"postCreateCommand": "dotnet workload update && dotnet workload install aspire",
+
+	"forwardPorts": [],
+    // "portsAttributes": {
+	//		"5001": {
+	//			"protocol": "https"
+	//		}
+	// }
+
+	"customizations": {
+		"vscode": {
+			// 🛠️ Configuración de extensiones 100% gratuitas y de código abierto (Sin C# Dev Kit)
+			"extensions": [
+				"ms-dotnettools.csharp",            // Extensión base oficial de C# (OmniSharp/Roslyn)
+				"microsoft-aspire.aspire-vscode", 	//aspire-vscode
+				"streetsidesoftware.code-spell-checker",
+                "GitHub.copilot",
+    			"GitHub.copilot-chat"
+			]
+		},
+		"jetbrains": {
+			"backend": "Rider",
+			"plugins": [
+				"23289-aspire"
+			]
+    	}
+	},
+
+    "remoteUser": "vscode"
+}
